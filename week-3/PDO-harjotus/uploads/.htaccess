@@ -1,0 +1,5 @@
+# uploads/.htaccess
+Deny from all
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|mp4|webm|ogg|mov)$">
+    Allow from all
+</FilesMatch>
