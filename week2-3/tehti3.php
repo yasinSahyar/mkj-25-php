@@ -1,13 +1,15 @@
 <?php
+session_start();
 require_once __DIR__ . '/inc/header.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'):
     if (isset($_POST['remember'])):
-        setcookie('username', $_POST['username']);
+        $_SESSION['username'] = $_POST['username'];
     else:
-        setcookie('username', '', time() - 3600);
+        unset($_SESSION['username']);
     endif;
     header('Location: ' . $_SERVER['PHP_SELF']);
+    exit;
 endif;
 ?>
 
@@ -16,8 +18,8 @@ endif;
             Username
             <?php
             $value = '';
-            if (isset($_COOKIE['username'])):
-                $value = "value=$_COOKIE[username]";
+            if (isset($_SESSION['username'])):
+                $value = "value=$_SESSION[username]";
             endif;
             ?>
             <input type="text" name="username" placeholder="Username" <?php echo $value; ?>>
@@ -26,7 +28,7 @@ endif;
             Remember me
             <?php
             $checked = '';
-            if (isset($_COOKIE['username'])):
+            if (isset($_SESSION['username'])):
                 $checked = 'checked';
             endif;
             ?>
